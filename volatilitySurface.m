@@ -66,9 +66,9 @@ unique_maturity = sort(unique(df.Maturity));
 maturity_length = length(unique_maturity);
 unique_strike = 16000:200:19600;
 strike_length = length(unique_strike);
+disp(maturity_length);
+disp(strike_length);
 vol = zeros(maturity_length,strike_length);
-xi = 0.03:0.01:0.76;
-yi = 16000:1000:19600;
 
 for m=1:maturity_length
     for n=1:strike_length
@@ -80,7 +80,10 @@ for m=1:maturity_length
     end
 end
 disp(vol);
-interp = interp2(unique_maturity, unique_strike, vol, xi, yi, 'linear' );
+
+[x, y] = meshgrid(unique_maturity, unique_strike);
+[xi, yi] = meshgrid(unique_maturity, unique_strike);
+interpVols = griddata(unique_maturity, unique_strike, vol, X, Y, 'linear');
 
 %figure();
 %zz = interp(xi, yi);

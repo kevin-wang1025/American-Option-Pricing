@@ -51,7 +51,7 @@ for i=1:len
     K = df.Strike(i);
     r = 0.0385;
     T = df.Maturity(i);
-    sigma = IV(C, S, K, r, T);
+    sigma = IV(C, S, K, r, T, 0.05);
     vol = horzcat(vol, sigma);
 end
 
@@ -64,20 +64,29 @@ df.Maturity = round(df.Maturity, 2);
 disp(df);
 unique_maturity = sort(unique(df.Maturity));
 maturity_length = length(unique_maturity);
-unique_strike = [];
+unique_strike = 16000:200:19600;
 strike_length = length(unique_strike);
-vol = zeros(7,94);
+disp(maturity_length);
+disp(strike_length);
+vol = zeros(maturity_length,strike_length);
 
 for m=1:maturity_length
     for n=1:strike_length
-        disp(m);
         filt1 = df.Maturity==unique_maturity(m);
         filt2 = df.Strike==unique_strike(n);
         rows = df(filt1&filt2, :); 
         sigma = rows(1, :).Vol;
         vol(m, n) = sigma;
     end
-end 
+end
+disp(vol);
+[xi, yi] = meshgrid(unique_maturity, unique_strike);
+interpVols = griddata(unique_maturity, unique_strike, vol, X, Y, 'linear');
+
+%figure();
+%zz = interp(xi, yi);
+%surf(xi, yi, zz);
+
 
     
     
