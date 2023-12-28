@@ -1,6 +1,5 @@
 % S0=100, K=100, r=0.05, T=1, sigma=0.3, step=252, n=1000
-function LSM_AmericanOption(s0, K, r, T, sigma, step, n)
-    disp('==========Conducting least square Monte Carlo==========');
+function result = LSM_AmericanOption(s0, K, r, T, sigma, step, n)
     
     %Step1:模擬出N條股價的路徑
     paths = zeros(n,step); 

@@ -1,5 +1,5 @@
 % S0=100, K=100, r=0.05, T=1, sigma=0.3, step=252, n=1000
-function BinomialModel(s0, K, r, sigma, T, n)
+function result = BinomialModel(s0, K, r, sigma, T, n)
     delta_t = T/(n-1);
     u = exp(sigma*sqrt(delta_t)); %上漲幅度
     d = exp(-sigma*sqrt(delta_t)); %下跌幅度
