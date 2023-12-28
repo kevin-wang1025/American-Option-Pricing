@@ -1,4 +1,5 @@
-function Newton(initialGuess, tol, maxIter)
+% S0=100, K=100, r=0.05, T=1, sigma=0.3, step=252, n=1000
+function [q2, result] = Newton(initialGuess, tol, maxIter)
 
     %手動調整參數
     r = 0.05;
@@ -23,11 +24,12 @@ function Newton(initialGuess, tol, maxIter)
         [d1, d2, c] = bs_model(S, 100, 1, 0.05, 0.03, 0.3);
         bi = exp((b-r)*T)*normcdf(d1)*(1-1/q2) + (1-exp((b-r)*T)*normpdf(d1)/(sigma*sqrt(T)))/q2;
         S = (K+c-bi*S)/(1-bi);
-        disp(abs(f(S))/K);
+        %disp(abs(f(S))/K);
         iteration = iteration + 1;
     end 
     
     disp(S);
+    result = S;
 end
 
 %Newton(100, 1e-1, 100000)
