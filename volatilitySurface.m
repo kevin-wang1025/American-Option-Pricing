@@ -51,7 +51,7 @@ for i=1:len
     K = df.Strike(i);
     r = 0.0385;
     T = df.Maturity(i);
-    sigma = IV(C, S, K, r, T);
+    sigma = IV(C, S, K, r, T, 0.05);
     vol = horzcat(vol, sigma);
 end
 
@@ -59,10 +59,34 @@ for i=1:length(vol)
     df.Vol(i) = vol(i);
 end
 
-%二維線性插值
+%二維線性插值 https://blog.csdn.net/hhhhhyyyyy8/article/details/76219922
+df.Maturity = round(df.Maturity, 2);
+disp(df);
+unique_maturity = sort(unique(df.Maturity));
+maturity_length = length(unique_maturity);
+unique_strike = 16000:200:19600;
+strike_length = length(unique_strike);
+vol = zeros(maturity_length,strike_length);
+xi = 0.03:0.01:0.76;
+yi = 16000:1000:19600;
+
+for m=1:maturity_length
+    for n=1:strike_length
+        filt1 = df.Maturity==unique_maturity(m);
+        filt2 = df.Strike==unique_strike(n);
+        rows = df(filt1&filt2, :); 
+        sigma = rows(1, :).Vol;
+        vol(m, n) = sigma;
+    end
+end
+disp(vol);
+interp = interp2(unique_maturity, unique_strike, vol, xi, yi, 'linear' );
+
+%figure();
+%zz = interp(xi, yi);
+%surf(xi, yi, zz);
 
 
-    
     
     
     
