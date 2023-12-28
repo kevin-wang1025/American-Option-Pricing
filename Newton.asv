@@ -1,0 +1,15 @@
+function Newton(initialGuess, tol, maxIter)
+    
+    %定義目標函數 
+    M = 2*r/sigma^2;
+    N = 2*b/sigma^2;
+    q2 = (-N+1+sqrt((N-1)^2+4*M/K)) / 2;
+    
+    f = @(S) S - K - c - (1-exp((b-r)*T)*normcdf(d1))*S/q2;
+    
+    %迭代求解過程
+    S = initialGuess;
+    iteration = 0;
+    
+    
+end
