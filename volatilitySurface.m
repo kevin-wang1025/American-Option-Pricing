@@ -82,13 +82,17 @@ end
 disp(vol);
 
 [x, y] = meshgrid(unique_maturity, unique_strike);
-[xi, yi] = meshgrid(unique_maturity, unique_strike);
-interpVols = griddata(unique_maturity, unique_strike, vol, X, Y, 'linear');
+disp(x);
+disp(y);
+[xi, yi] = meshgrid(0.03:0.01:0.76, 16000:100:19600);
+interpVols = interp2(x, y, transpose(vol), xi, yi, 'linear');
 
-%figure();
-%zz = interp(xi, yi);
-%surf(xi, yi, zz);
-
+figure;
+surf(xi, yi, interpVols);
+xlabel('Maturity');
+ylabel('Strike');
+zlabel('Volatility');
+title('Volatility Surface');
 
     
     
