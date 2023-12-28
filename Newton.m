@@ -19,5 +19,16 @@ function Newton(initialGuess, tol, maxIter)
     S = initialGuess;
     iteration = 0;
     
-    disp(f(110));
+    while abs(f(S))/K>tol && iteration<maxIter
+        [d1, d2, c] = bs_model(S, 100, 1, 0.05, 0.03, 0.3);
+        bi = exp((b-r)*T)*normcdf(d1)*(1-1/q2) + (1-exp((b-r)*T)*normpdf(d1)/(sigma*sqrt(T)))/q2;
+        S = (K+c-bi*S)/(1-bi);
+        disp(abs(f(S))/K);
+        iteration = iteration + 1;
+    end 
+    
+    disp(S);
 end
+
+%Newton(100, 1e-1, 100000)
+%138.8884 
