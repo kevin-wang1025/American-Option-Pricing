@@ -1,5 +1,5 @@
 % S0=100, K=100, r=0.05, T=1, sigma=0.3, step=252, n=1000
-function result = LSM_AmericanOption(s0, K, r, T, sigma, step, n)
+function result = LSM_AmericanOption(s0, K, r, T, sigma, step, n, dr)
     
     %Step1:模擬出N條股價的路徑
     paths = zeros(n,step); 
@@ -7,7 +7,7 @@ function result = LSM_AmericanOption(s0, K, r, T, sigma, step, n)
     for i=1:n
         paths(i,1) = s0; 
         for j=2:step
-            s = paths(i,j-1) * exp((r-q-sigma^2/2)*(T/step) + sigma*(randn()*sqrt(T/step)));                   
+            s = paths(i,j-1) * exp((r-dr-sigma^2/2)*(T/step) + sigma*(randn()*sqrt(T/step)));                   
             paths(i,j) = s;
         end
         %fprintf('模擬次數:%d\n',i);
@@ -94,7 +94,7 @@ function result = LSM_AmericanOption(s0, K, r, T, sigma, step, n)
     result = sum / n;
     disp(result); 
     
-    %LSM_AmericanOption(100, 100, 0.05, 1, 0.3, 252, 1000)
+    %LSM_AmericanOption(100, 100, 0.05, 1, 0.3, 252, 1000, 0.02)
 
     
     
