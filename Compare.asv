@@ -24,13 +24,14 @@ else
 end
 
 baw_time = toc;
+fprintf('BAW運行時間: %d秒',elapsed_time);
 
 %Binomial model, LSMC, BAW之下美式選擇權價格之比較
-[binomial_time, binomial] = BinomialModel(S, K, r, sigma, T, 1000, dr);
-[lsmc_time, lsmc] = LSM_AmericanOption(S, K, r, 1, sigma, 252, 1000, dr);
+binomial_time, binomial = BinomialModel(S, K, r, sigma, T, 1000, dr);
+lsmc_time = lsmc = LSM_AmericanOption(S, K, r, 1, sigma, 252, 1000, dr);
 baw = american_price;
 fprintf("********************評價結果********************\n");
-fprintf("Binomial之下美式選擇權價格: %d 計算時間: %d\n", binomial, binomial_time);
-fprintf("LSMC之下美式選擇權價格: %d 計算時間: %d\n", lsmc, lsmc_time);
-fprintf("BAW之下美式選擇權價格: %d 計算時間: %d\n", baw, baw_time);
+fprintf("Binomial之下美式選擇權價格: %d\n", binomial);
+fprintf("Binomial之下美式選擇權價格: %d\n", lsmc);
+fprintf("BAW之下美式選擇權價格: %d\n", baw);
     
