@@ -77,7 +77,7 @@ function result = LSM_with_diff_reg(s0, K, r, T, sigma, step, n, dr)
         %a1 = p(2);
         
         %weighted least squares regression
-        weights = rand(size(x));
+        weights = rand();
         p = fitlm(x, y, 'weights', weights);
         a0 = p.Coefficients.Estimate(1);
         a1 = p.Coefficients.Estimate(2);
