@@ -1,9 +1,9 @@
 % S0=100, K=100, r=0.05, T=1, sigma=0.3, step=252, n=1000
-function result = BinomialModel(s0, K, r, sigma, T, n)
+function result = BinomialModel(s0, K, r, sigma, T, n, q)
     delta_t = T/(n-1);
     u = exp(sigma*sqrt(delta_t)); %上漲幅度
     d = exp(-sigma*sqrt(delta_t)); %下跌幅度
-    p = (exp(r*delta_t)-d) / (u-d); %上漲機率
+    p = (exp((r-q)*delta_t)-d) / (u-d); %上漲機率
     q = 1 - p; %下跌機率
     fprintf('上漲機率:');
     disp(p);
@@ -69,7 +69,7 @@ function result = BinomialModel(s0, K, r, sigma, T, n)
     disp(result);
 end
 
-%BinomialModel(100, 100, 0.05, 0.3, 1, 1000)
+%BinomialModel(100, 100, 0.05, 0.3, 1, 1000, 0.02)
 
 
 

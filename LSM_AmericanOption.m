@@ -7,7 +7,7 @@ function result = LSM_AmericanOption(s0, K, r, T, sigma, step, n)
     for i=1:n
         paths(i,1) = s0; 
         for j=2:step
-            s = paths(i,j-1) * exp((r-sigma^2/2)*(T/step) + sigma*(randn()*sqrt(T/step)));                   
+            s = paths(i,j-1) * exp((r-q-sigma^2/2)*(T/step) + sigma*(randn()*sqrt(T/step)));                   
             paths(i,j) = s;
         end
         %fprintf('模擬次數:%d\n',i);
